@@ -2,16 +2,10 @@ from flask import Flask
 from flask.globals import request
 from twilio.twiml.messaging_response import MessagingResponse
 
+from App.whatsapp import handleWAMessage
+
 
 app = Flask(__name__)
-
-ShoppingLists = {}
-
-helpMessage = """Welcome to Quick Pickup!
-*list* - Lists items in cart
-*place order* - Place your order
-*remove <item number>* - Remove item from your cart
-*<item> - <quantity>* - Add item to cart"""
 
 
 @app.route("/")
@@ -21,18 +15,10 @@ def index():
 
 @app.route("/message", methods=["POST"])
 def reply_message():
-    msg = request.form.get("Body")
-    sender = request.form.get("From").split(":")[1].replace("+", "")
-    print(sender)
     response = MessagingResponse()
-    global ShoppingLists
-    if "help" in msg.lower():
-        response.message(helpMessage)
-    if msg.lower() == "list":
-        if sender not in ShoppingLists:
-            response.message("Your cart is empty!")
-        else:
-            response.message("\n".join(ShoppingLists[sender]))
+
+    response.message(handleWAMessage(request.form.get("Body"), request.form.get("From")))
+    return str(response)
 
     if "-" in msg:
         if sender not in ShoppingLists:
@@ -41,14 +27,6 @@ def reply_message():
         else:
             ShoppingLists[sender] += msg.splitlines()
             response.message("Added item to cart!")
-
-    if msg.lower() == "place order":
-        response.message(
-            "Your order has been placed successfully!\n"
-            + "Items in current order:\n"
-            + "\n".join(ShoppingLists[sender])
-        )
-        ShoppingLists.pop(sender)
 
     if (
         msg.lower().startswith("remove")
