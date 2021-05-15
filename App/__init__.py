@@ -7,6 +7,12 @@ app = Flask(__name__)
 
 ShoppingLists = {}
 
+helpMessage = """Welcome to Quick Pickup!
+*list* - Lists items in cart
+*place order* - Place your order
+*remove <item number>* - Remove item from your cart
+*<item> - <quantity>* - Add item to cart"""
+
 
 @app.route("/")
 def index():
@@ -21,13 +27,7 @@ def reply_message():
     response = MessagingResponse()
     global ShoppingLists
     if "help" in msg.lower():
-        response.message(
-            """Welcome to Quick Pickup!
-            *list* - Lists items in cart
-            *place order* - Place your order
-            *remove <item number>* - Remove item from your cart
-            *<item> - <quantity>* - Add item to cart"""
-        )
+        response.message(helpMessage)
     if msg.lower() == "list":
         if sender not in ShoppingLists:
             response.message("Your cart is empty!")
@@ -44,11 +44,9 @@ def reply_message():
 
     if msg.lower() == "place order":
         response.message(
-            """Your order has been placed successfully!
-            Items in current order:
-            {}""".format(
-                "\n".join(ShoppingLists[sender])
-            )
+            "Your order has been placed successfully!\n"
+            + "Items in current order:\n"
+            + "\n".join(ShoppingLists[sender])
         )
         ShoppingLists.pop(sender)
 
@@ -60,7 +58,3 @@ def reply_message():
         ShoppingLists[sender].pop(int(msg.split(" ")[1].strip(" ")) - 1)
 
     return str(response)
-
-
-if __name__ in "__main__":
-    app.run()
