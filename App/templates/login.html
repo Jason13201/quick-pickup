@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quick Pickup!</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Girassol&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login.css') }}"
+    />
+  </head>
+  <body>
+    <css-doodle class="bg">
+      :doodle { @grid: 7 / 100vmax; background: #0a0c27; @size: 100vw 100vh;}
+      @shape: clover 5; background: hsla( calc(360 - @i * 4), 70%, 68%, @r.8 );
+      transform: scale(@r(.2, 1.5)) translate(@m2.@r(±50%));
+    </css-doodle>
+    <div class="main-container">
+      <img src="{{ url_for('static', filename='welcome.png') }}" alt="" />
+      <h1>Store Order Command Center</h1>
+      <form class="ui form" method="POST" action="{{ url_for('login') }}">
+        <div class="field">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="Enter username"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="text"
+            placeholder="Enter password"
+            required
+          />
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input
+              type="checkbox"
+              name="remember"
+              id="remember"
+              class="hidden"
+            />
+            <label for="remember">Remember me</label>
+          </div>
+        </div>
+        <input type="submit" class="ui button" value="Login" />
+      </form>
+    </div>
+    <script src="https://unpkg.com/css-doodle@0.17.3/css-doodle.min.js"></script>
+  </body>
+</html>

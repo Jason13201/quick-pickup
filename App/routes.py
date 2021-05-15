@@ -1,4 +1,4 @@
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, render_template
 from flask_login import login_user, logout_user, current_user
 from twilio.twiml.messaging_response import MessagingResponse
 
@@ -11,10 +11,10 @@ from App.models import User
 def index():
     if current_user.is_authenticated:
         return "Hello, not a potato!"
-    return "Hello, Potato!"
+    return render_template("login.html")
 
 
-@app.route("/login")
+@app.route("/login", methods=["POST"])
 def login():
     login_user(User(0))
     return redirect(url_for("index"))

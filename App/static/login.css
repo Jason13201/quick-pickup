@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1d3557;
+}
+
+.main-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 60px;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 2px 2px 10px #050616;
+  z-index: 1337;
+}
+
+.main-container h1 {
+  font-family: "Girassol";
+  font-weight: 400;
+  text-align: center;
+}
+
+.main-container img {
+  width: 275px;
+}
+
+.main-container form {
+  min-width: min(100vw, 275px);
+}
+
+.bg {
+  position: fixed;
+  width: 100vmax;
+  height: 100vmax;
+  overflow: hidden;
+}
