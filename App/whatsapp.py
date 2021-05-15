@@ -3,9 +3,10 @@ from collections import defaultdict
 
 helpMessage = """Welcome to Quick Pickup!
 *list* - Lists items in cart
+*help* - Shows this help menu
 *place order* - Place your order
-*remove <item number>* - Remove item from your cart
-*<item> - <quantity>* - Add item to cart"""
+*remove _<item>_* - Remove from cart
+*_<item>_ - _<quantity>_* - Add item to cart"""
 
 ShoppingList = defaultdict(dict)
 
@@ -30,7 +31,7 @@ def handleWAMessage(msg, sender):
     print(sender)
 
     # Help - how to use the bot
-    if "help" in msg.lower():
+    if any([word in msg.lower() for word in ["help", "hello", "hi"]]):
         return helpMessage
 
     # List - show items in the cart
