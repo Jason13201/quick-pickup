@@ -1,4 +1,3 @@
-from twilio.twiml.messaging_response import MessagingResponse
 from collections import defaultdict
 
 
