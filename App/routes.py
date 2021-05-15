@@ -10,7 +10,7 @@ from App.models import User
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        return "Hello, not a potato!"
+        return render_template("dash.html")
     return render_template("login.html")
 
 

@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1d3557;
+}
+
+.main-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 50px;
+  gap: 40px;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 2px 2px 10px #050616;
+  z-index: 1337;
+  min-height: 600px;
+  min-width: min(100vw, 800px);
+}
+
+:root {
+  --vio: #5e2a50;
+  --dark-vio: #3b1732;
+}
+
+.main-container h1 {
+  font-family: "Girassol";
+  font-weight: 400;
+  text-align: center;
+  color: var(--dark-vio);
+  margin: 0;
+}
+
+.bg {
+  position: fixed;
+  width: 100vmax;
+  height: 100vmax;
+  overflow: hidden;
+}
+
+.orders-container {
+  flex-grow: 1;
+  display: flex;
+  width: 100%;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-list div {
+  padding: 20px 50px;
+  background-color: var(--vio);
+  font-family: Girassol;
+  font-size: 26px;
+  border-radius: 7px;
+  cursor: pointer;
+  color: white;
+  /* box-shadow: 2px 2px 5px #444; */
+  transition: all 0.4s ease;
+  border: 2px solid var(--vio);
+}
+
+.order-list div:hover {
+  color: #ff44ad;
+  box-shadow: 2px 2px 5px violet;
+}
+
+.order-list div.active {
+  background-color: white;
+  color: var(--vio);
+}

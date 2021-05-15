@@ -21,7 +21,7 @@
     />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='login.css') }}"
+      href="{{ url_for('static', filename='dash.css') }}"
     />
   </head>
   <body>
@@ -31,45 +31,16 @@
       transform: scale(@r(.2, 1.5)) translate(@m2.@r(±50%));
     </css-doodle>
     <div class="main-container">
-      <img
-        src="{{ url_for('static', filename='welcome.png') }}"
-        alt="Welcome image"
-      />
       <h1>Store Order Command Center</h1>
-      <form class="ui form" method="POST" action="{{ url_for('login') }}">
-        <div class="field">
-          <label for="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            placeholder="Enter username"
-            required
-          />
+      <div class="orders-container">
+        <div class="order-list">
+          <div>Order #1</div>
+          <div>Order #2</div>
+          <div class="active">Order #3</div>
+          <div>Order #4</div>
         </div>
-        <div class="field">
-          <label for="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Enter password"
-            required
-          />
-        </div>
-        <div class="field">
-          <div class="ui checkbox">
-            <input
-              type="checkbox"
-              name="remember"
-              id="remember"
-              class="hidden"
-            />
-            <label for="remember">Remember me</label>
-          </div>
-        </div>
-        <input type="submit" class="ui button" value="Login" />
-      </form>
+        <div class="order-items"></div>
+      </div>
     </div>
     <script src="https://unpkg.com/css-doodle@0.17.3/css-doodle.min.js"></script>
   </body>
