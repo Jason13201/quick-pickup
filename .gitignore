@@ -134,4 +134,4 @@ ngrok.exe
 bot.py
 config.py
 .vscode
-app-copy.py
+#app-copy.py
