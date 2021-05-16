@@ -92,16 +92,8 @@ body {
   gap: 40px;
 }
 
-.table-wrapper {
-  /* flex-grow: 1; */
-}
-
 .order-table {
   width: 100%;
-}
-.order-table tr {
-  /* margin-bottom: 10px; */
-  /* padding: 10px 0; */
 }
 
 .order-table th {
