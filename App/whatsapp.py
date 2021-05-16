@@ -1,5 +1,8 @@
+from random import randrange
 from collections import defaultdict
 
+from App import socketio
+from App.reply import sendWAMessage
 
 helpMessage = """Welcome to Quick Pickup!
 *list* - Lists items in cart
@@ -9,6 +12,60 @@ helpMessage = """Welcome to Quick Pickup!
 *_<item>_ - _<quantity>_* - Add item to cart"""
 
 ShoppingList = defaultdict(dict)
+
+# Orders
+orders = []
+orderNumber = 1
+
+
+def getOrders():
+    global orders
+    return orders
+
+
+def addOrder(cart, owner):
+    global orders, orderNumber
+    orders.append(
+        {
+            "items": cart,
+            "pin": randrange(1000, 10000),
+            "number": orderNumber,
+            "state": "ordered",
+            "owner": owner,
+        }
+    )
+    orderNumber += 1
+    socketio.emit("orders", orders, broadcast=True)
+
+
+def markOrderAsReady(orderNum):
+    for order in orders:
+        if order["number"] == orderNum:
+            sendWAMessage(
+                order["owner"],
+                f"Your order #{orderNum} has been successfully packed!\nOrder PIN: {order['pin']}",
+            )
+            order["state"] = "ready"
+            return True
+    return False
+
+
+def markOrderAsPickedUp(orderNum):
+    for i, order in enumerate(orders):
+        if order["number"] == orderNum:
+            sendWAMessage(
+                order["owner"],
+                f"Your order #{orderNum} has been picked up! Thank you for shopping with us :)",
+            )
+            del orders[i]
+            return True
+    return False
+
+
+# Add some additional orders for testing
+from App.mock import mockOrders
+
+mockOrders()
 
 
 def handleWAMessage(msg, sender):
@@ -46,14 +103,14 @@ def handleWAMessage(msg, sender):
         if isShoppingListEmpty():
             return "Your cart is empty! You can place an order after adding items to the cart!"
 
-        # HANDLE ORDERING HERE
-        # SEND TO FRONT END
-        ShoppingList[sender] = {}
-        return (
+        addOrder(ShoppingList[sender], sender)
+        response = (
             "Your order has been placed successfully!\n"
             + "Items in current order:\n"
             + getAllItems()
         )
+        ShoppingList[sender] = {}
+        return response
 
     # Remove items
     if msg.lower().startswith("remove"):

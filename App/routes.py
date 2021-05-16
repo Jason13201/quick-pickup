@@ -1,9 +1,10 @@
 from flask import request, redirect, url_for, render_template
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
+from flask_socketio import emit
 from twilio.twiml.messaging_response import MessagingResponse
 
-from App import app
-from App.whatsapp import handleWAMessage
+from App import app, socketio
+from App.whatsapp import handleWAMessage, getOrders, markOrderAsReady, markOrderAsPickedUp
 from App.models import User
 
 
@@ -32,3 +33,24 @@ def reply_message():
 
     response.message(handleWAMessage(request.form.get("Body"), request.form.get("From")))
     return str(response)
+
+
+@login_required
+@app.route("/orders")
+def orders():
+    return str(getOrders())
+
+
+@socketio.on("connect")
+def socket_connect():
+    emit("orders", getOrders())
+
+
+@socketio.on("ready")
+def socket_order_ready(orderNum):
+    markOrderAsReady(orderNum)
+
+
+@socketio.on("pickedup")
+def socket_order_ready(orderNum):
+    markOrderAsPickedUp(orderNum)

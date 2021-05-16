@@ -2,3 +2,4 @@ twilio
 flask
 flask_login
 flask-socketio
+eventlet

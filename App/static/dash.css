@@ -53,6 +53,7 @@ body {
   flex-grow: 1;
   display: flex;
   width: 100%;
+  gap: 50px;
 }
 
 .order-list {
@@ -63,15 +64,15 @@ body {
 
 .order-list div {
   padding: 20px 50px;
-  background-color: var(--vio);
   font-family: Girassol;
   font-size: 26px;
   border-radius: 7px;
   cursor: pointer;
-  color: white;
   /* box-shadow: 2px 2px 5px #444; */
   transition: all 0.4s ease;
   border: 2px solid var(--vio);
+  background-color: white;
+  color: var(--vio);
 }
 
 .order-list div:hover {
@@ -80,6 +81,59 @@ body {
 }
 
 .order-list div.active {
-  background-color: white;
+  color: white;
+  background-color: var(--vio);
+}
+
+.order-items {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.table-wrapper {
+  /* flex-grow: 1; */
+}
+
+.order-table {
+  width: 100%;
+}
+.order-table tr {
+  /* margin-bottom: 10px; */
+  /* padding: 10px 0; */
+}
+
+.order-table th {
+  font-family: Girassol;
+  color: var(--dark-vio);
+  font-size: 24px;
+  text-align: left;
+  font-weight: 400;
+  padding: 7px 0;
+}
+
+.order-table td {
+  font-family: "Inter";
+  color: var(--dark-vio);
+  font-size: 20px;
+  padding: 7px 0;
+}
+
+.order-table > tr > td:first-child {
+  min-width: 190px;
+}
+
+td:hover > i.times.icon {
   color: var(--vio);
+  opacity: 0.8;
+}
+
+td.notInStock {
+  cursor: pointer;
+  text-align: right;
+}
+
+.hidden {
+  display: none !important;
 }

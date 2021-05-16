@@ -23,6 +23,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='dash.css') }}"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <css-doodle class="bg">
@@ -33,15 +37,19 @@
     <div class="main-container">
       <h1>Store Order Command Center</h1>
       <div class="orders-container">
-        <div class="order-list">
-          <div>Order #1</div>
-          <div>Order #2</div>
-          <div class="active">Order #3</div>
-          <div>Order #4</div>
+        <div class="order-list"></div>
+        <div class="order-items">
+          <div class="table-wrapper"></div>
+          <div class="button-wrapper"></div>
         </div>
-        <div class="order-items"></div>
       </div>
     </div>
     <script src="https://unpkg.com/css-doodle@0.17.3/css-doodle.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="{{ url_for('static', filename='dash.js') }}"></script>
   </body>
 </html>
